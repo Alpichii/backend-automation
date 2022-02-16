@@ -18,33 +18,32 @@ public class DatabaseConnection {
         Statement statement = connection.createStatement();
         // Sending the query to database
         ResultSet resultSet = statement.executeQuery(query);
+        System.out.println("I am able execute my query");
 
 //        ResultSetMetaData interface is helping us to get the table info
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
         System.out.println("Number of column: " + resultSetMetaData.getColumnCount());
-        System.out.println("Name of the first column: "+resultSetMetaData.getColumnName(1));
-        System.out.println(" "+ resultSetMetaData.getColumnDisplaySize(1));
+        System.out.println("Name of the first column: " + resultSetMetaData.getColumnName(1));
+        System.out.println("Column display size:" + resultSetMetaData.getColumnDisplaySize(1));
+        System.out.println("Column label:" + resultSetMetaData.getColumnLabel(1));
+
+
 
 //
 //
-        System.out.println(" First Name                Last Name"  );
+        System.out.println(" First Name                Last Name");
         while (resultSet.next()) {
             String firstName = resultSet.getString("FIRST_NAME");
             String lastName = resultSet.getString("LAST_NAME");
-            System.out.println(firstName+ "                "+ lastName);
+            System.out.println(firstName + "                " + lastName);
 
-            if(firstName.equals("Steven")){
-                String actualName= firstName;
+            if (firstName.equals("Steven") && lastName.equals("King")) {
+                String actualName = firstName;
                 Assert.assertEquals(actualName, "Steven");
-                System.out.println("Actual name: "+ actualName);
+                System.out.println("Actual name: " + actualName+ " "+ lastName);
                 break;
             }
-
-
-
         }
-
-
     }
 }
