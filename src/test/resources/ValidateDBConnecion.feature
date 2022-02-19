@@ -8,7 +8,7 @@ Feature: As a QE, validating that I can connect to database
     Examples: Query for the database
       | query                             |
       | select min(salary) from employees |
-  @st
+
   Scenario Outline: Validating the db connection
     And User sends the "<query>" to database to get min <salary>
     Examples: Query for the database

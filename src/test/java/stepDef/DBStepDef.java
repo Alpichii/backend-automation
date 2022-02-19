@@ -3,8 +3,10 @@ package stepDef;
 import io.cucumber.java.en.Given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
 import utils.DBUtil;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 public class DBStepDef {
@@ -33,7 +35,8 @@ public class DBStepDef {
     public void user_sends_the_to_database_to_get_min(String query, Integer expectedSalary) {
         Object actualSalary = DBUtil.getCellValue(query);
         logger.info("Query is executed");
-        logger.info("The value from the database " + actualSalary, " is matching with the " + expectedSalary);
+        Assert.assertEquals(actualSalary, new BigDecimal(expectedSalary));
+        logger.debug("The value from the database " + actualSalary, " is matching with the " + new BigDecimal(expectedSalary));
         logger.info("Step is passing for getting the value of the salary");
     }
 }
