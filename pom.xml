@@ -122,6 +122,14 @@
             <version>3.9</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -132,8 +140,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.21.0</version>
                 <configuration>
+                    <!--if the tests are going to fail still continue-->
                     <testFailureIgnore>true</testFailureIgnore>
                     <includes>
+                        <!--we locate the runner class -->
                         <include>**/*Runner.java</include>
                     </includes>
                 </configuration>
@@ -151,6 +161,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+<!--                            put your exact project name here-->
                             <projectName>backend-automation</projectName>
                             <outputDirectory>${project.build.directory}/cucumber-report-html</outputDirectory>
                             <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>

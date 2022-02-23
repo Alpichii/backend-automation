@@ -8,7 +8,6 @@ public class DBUtil {
     private static String url = "jdbc:oracle:thin:@tgbatch-3.cup7q3kvh5as.us-east-2.rds.amazonaws.com:1521/ORCL";
     private static String username = "techglobal";
     private static String password = "TechGlobal123!";
-    private static String query = "select * from employees";
 
     private static Connection connection;
     private static Statement statement;
@@ -27,26 +26,25 @@ public class DBUtil {
     }
 
     public static void executeQuery(String query) {
+
         try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            resultSet = statement.executeQuery(query);
+            resultSet = connection.createStatement().executeQuery(query);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     public static Object getCellValue(String query) {
+        // if we have only one value from one query we use this method because we don't need
+        // list of list.
         return getQueryResultList(query).get(0).get(0);
     }
 
     public static List<List<Object>> getQueryResultList(String query) {
         executeQuery(query);
         List<List<Object>> rowList = new ArrayList<>();
-        ResultSetMetaData rsmd;
+        ResultSetMetaData rsmd; // we use this for getting the column size
 
         try {
             rsmd = resultSet.getMetaData();
