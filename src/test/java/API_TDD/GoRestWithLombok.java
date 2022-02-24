@@ -8,12 +8,11 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import pojo_classes.users.CreateUser;
-import pojo_classes.users.UpdateUser;
+import pojo_classes.users.CreateUserWithLombok;
 
 import static org.hamcrest.Matchers.equalTo;
 
-public class GoRest {
+public class GoRestWithLombok {
 
     Faker faker = new Faker();
 
@@ -40,18 +39,13 @@ public class GoRest {
     @Test
     public void CRUD() throws JsonProcessingException {
 
-        CreateUser createUser = new CreateUser();
-
-        createUser.setName("Tech Global");
-        createUser.setEmail(faker.internet().emailAddress());
-        createUser.setGender("female");
-        createUser.setStatus("active");
+        CreateUserWithLombok createUserWithLombok = new CreateUserWithLombok();
 
         // created new user with using POJO class
         response = RestAssured.given().log().all()
                 .header("Content-Type", "application/json")
                 .header("Authorization", utils.ConfigReader.getProperty("Token"))
-                .body(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(createUser))
+                .body(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(createUserWithLombok))
                 .when().post("/public/v2/users")
                 .then().log().all()
                 .assertThat().statusCode(201)
@@ -59,27 +53,27 @@ public class GoRest {
 
 //        String postResponseBody = response.getBody().asString();
 //        System.out.println("POST Response body is: " + postResponseBody);
-
-        actualUserId = response.jsonPath().getInt("id");
-        actualName = response.jsonPath().getString("name");
-        actualEmail = response.jsonPath().getString("email");
-        actualStatus = response.jsonPath().getString("status");
-        actualGender = response.jsonPath().getString("gender");
-
-        // update the user with using the POJO class
-
-        UpdateUser updateUser = new UpdateUser();
-        updateUser.setName(faker.name().fullName());
-        updateUser.setEmail(actualEmail);
-        updateUser.setStatus(actualStatus);
-
-        response = RestAssured.given().log().all()
-                .header("Content-Type", "application/json")
-                .header("Authorization", utils.ConfigReader.getProperty("Token"))
-                .body(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(updateUser))
-                .when().put("/public/v2/users/" + actualUserId)
-                .then().log().all()
-                .assertThat().statusCode(200)
-                .extract().response();
+//
+//        actualUserId = response.jsonPath().getInt("id");
+//        actualName = response.jsonPath().getString("name");
+//        actualEmail = response.jsonPath().getString("email");
+//        actualStatus = response.jsonPath().getString("status");
+//        actualGender = response.jsonPath().getString("gender");
+//
+//        // update the user with using the POJO class
+//
+//        UpdateUser updateUser = new UpdateUser();
+//        updateUser.setName(faker.name().fullName());
+//        updateUser.setEmail(actualEmail);
+//        updateUser.setStatus(actualStatus);
+//
+//        response = RestAssured.given().log().all()
+//                .header("Content-Type", "application/json")
+//                .header("Authorization", utils.ConfigReader.getProperty("Token"))
+//                .body(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(updateUser))
+//                .when().put("/public/v2/users/" + actualUserId)
+//                .then().log().all()
+//                .assertThat().statusCode(200)
+//                .extract().response();
     }
 }
