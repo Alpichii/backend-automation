@@ -7,6 +7,9 @@ import com.jayway.jsonpath.JsonPath;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -22,6 +25,8 @@ public class PetsAPIWithLombok {
     Response response;
     ObjectMapper objectMapper = new ObjectMapper();
 
+    private static Logger logger = LogManager.getLogger(PetsAPIWithLombok.class);
+
     int actualPetId;
     String actualPetName;
     String actualPetStatus;
@@ -33,7 +38,7 @@ public class PetsAPIWithLombok {
 
     @BeforeSuite
     public void testingStarts() {
-        System.out.println("API Automation starts");
+      logger.info("Starting API Automation Test with the TestNG");
     }
 
     @BeforeTest
@@ -72,11 +77,35 @@ public class PetsAPIWithLombok {
 /**
  * Getting the actuall attributes' values from response body
  */
-
         actualPetId = JsonPath.read(response.asString(), "id");
+//        actualPetId = 5;
         System.out.println("Actual PetId from the response body: " + actualPetId);
 
+        logger.info("I am validating the petId");
+        logger.debug("The expected petId should be " + createPet.getId() + " we found " + actualPetId);
+        logger.error("The expected petId should be " + createPet.getId() + " we found " + actualPetId);
 
-//        Assert.assertEquals();
+        Assert.assertEquals(actualPetId, createPet.getId());
+
+        actualPetName = JsonPath.read(response.asString(), "name");
+        Assert.assertEquals(actualPetName, createPet.getName());
+
+        actualPetStatus = JsonPath.read(response.asString(), "status");
+        Assert.assertEquals(actualPetStatus, createPet.getStatus());
+
+        actualCategoryId = JsonPath.read(response.asString(), "category.id");
+        Assert.assertEquals(actualCategoryId, createPet.getCategory().getId());
+
+        actualCategoryName = JsonPath.read(response.asString(), "category.name");
+        Assert.assertEquals(actualCategoryName, createPet.getCategory().getName());
+
+        actualTagsId = JsonPath.read(response.asString(), "tags[0].id");
+        Assert.assertEquals(actualTagsId, createPet.getTags().get(0).getId());
+
+        actualTagsName = JsonPath.read(response.asString(), "tags[0].name");
+        Assert.assertEquals(actualTagsName, createPet.getTags().get(0).getName());
+
+        actualPhotoUrl = JsonPath.read(response.asString(), "photoUrls[0]");
+        Assert.assertEquals(actualPhotoUrl, createPet.getPhotoUrls().get(0));
     }
 }
