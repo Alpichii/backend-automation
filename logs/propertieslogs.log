@@ -1,0 +1,4 @@
+[INFO ] 2022-02-26 15:21:33.335 [main] PetsAPIWithLombok - Starting API Automation Test with the TestNG
+[INFO ] 2022-02-26 15:21:36.941 [main] PetsAPIWithLombok - I am validating the petId
+[DEBUG] 2022-02-26 15:21:36.941 [main] PetsAPIWithLombok - The expected petId should be 3 we found 3
+[ERROR] 2022-02-26 15:21:36.941 [main] PetsAPIWithLombok - The expected petId should be 3 we found 3
