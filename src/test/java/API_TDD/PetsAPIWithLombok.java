@@ -3,6 +3,7 @@ package API_TDD;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
+import com.jayway.jsonpath.JsonPath;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -18,10 +19,17 @@ import java.util.Collections;
 public class PetsAPIWithLombok {
 
     Faker faker = new Faker();
-
     Response response;
-
     ObjectMapper objectMapper = new ObjectMapper();
+
+    int actualPetId;
+    String actualPetName;
+    String actualPetStatus;
+    int actualCategoryId;
+    String actualCategoryName;
+    int actualTagsId;
+    String actualTagsName;
+    String actualPhotoUrl;
 
     @BeforeSuite
     public void testingStarts() {
@@ -36,10 +44,19 @@ public class PetsAPIWithLombok {
     @Test
     public void petsCRUD() throws JsonProcessingException {
 
+//        Category buildCategory = Category.builder().build();
+//        Tags buildTags = Tags.builder().build();
+//
+//        CreatePet createPet = CreatePet.builder()
+//                .category(buildCategory)
+//                .photoUrls(Collections.singletonList(("My Dog URL")))
+//                .tags(Collections.singletonList(buildTags))
+//                .build();
+
         Category buildCategory = Category.builder().build();
         Tags buildTags = Tags.builder().build();
 
-        CreatePet createPet = CreatePet.builder()
+        CreatePet createPet = CreatePet.builder().id(3).name("Marco")
                 .category(buildCategory)
                 .photoUrls(Collections.singletonList(("My Dog URL")))
                 .tags(Collections.singletonList(buildTags))
@@ -51,5 +68,15 @@ public class PetsAPIWithLombok {
                 .post("/v2/pet")
                 .then().log().all().assertThat().statusCode(200)
                 .extract().response();
+
+/**
+ * Getting the actuall attributes' values from response body
+ */
+
+        actualPetId = JsonPath.read(response.asString(), "id");
+        System.out.println("Actual PetId from the response body: " + actualPetId);
+
+
+//        Assert.assertEquals();
     }
 }

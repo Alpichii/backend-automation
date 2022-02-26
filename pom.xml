@@ -165,6 +165,20 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path-assert -->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path-assert</artifactId>
+            <version>2.7.0</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -197,7 +211,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-<!--                            put your exact project name here-->
+                            <!--                            put your exact project name here-->
                             <projectName>backend-automation</projectName>
                             <outputDirectory>${project.build.directory}/cucumber-report-html</outputDirectory>
                             <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>

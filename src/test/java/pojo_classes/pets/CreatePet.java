@@ -39,11 +39,15 @@ public class CreatePet {
     //Note: If you do not use @Builder.Default
     //it will not pick the attribute's value from this class
 
-    @Builder.Default
-    private int id = 3;
+//  Use the following when you assign the value in the pojo
+//    @Builder.Default
+//    private int id = 3;
+
+    private int id;
     private Category category;
-    @Builder.Default
-    private String name = "Marco";
+//    @Builder.Default
+//    private String name = "Marco";
+    private String name ;
     private List<String> photoUrls;
     private List<Tags> tags;
     @Builder.Default
