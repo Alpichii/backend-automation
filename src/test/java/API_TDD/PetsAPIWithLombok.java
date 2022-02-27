@@ -19,6 +19,10 @@ import pojo_classes.pets.Tags;
 
 import java.util.Collections;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
+
 public class PetsAPIWithLombok {
 
     Faker faker = new Faker();
@@ -80,6 +84,14 @@ public class PetsAPIWithLombok {
         actualPetId = JsonPath.read(response.asString(), "id");
 //        actualPetId = 5;
         System.out.println("Actual PetId from the response body: " + actualPetId);
+
+        // The hamcrest assertion can be used for all the attributes' validation
+
+        assertThat(
+                "I am expecting Pet Id is: "+ createPet.getId(),
+                actualPetId,
+                is(createPet.getId())
+        );
 
         logger.info("I am validating the petId");
         logger.debug("The expected petId should be " + createPet.getId() + " we found " + actualPetId);
