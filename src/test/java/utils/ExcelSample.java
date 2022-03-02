@@ -25,14 +25,14 @@ public class ExcelSample {
         int lastRowNum = sheet.getLastRowNum();
         System.out.println("The last row number: " + lastRowNum);
 
-        int lastColumnNumber = sheet.getRow(1).getLastCellNum();
-        System.out.println("Last column number: " + lastColumnNumber);
+        int  lastCellNum= sheet.getRow(1).getLastCellNum();
+        System.out.println("Last column number: " + lastCellNum);
 
         // Looping each row
         for (int r = 0; r <= lastRowNum; r++) {
             XSSFRow row = sheet.getRow(r);
             // Looping each cell for each row
-            for (int c = 0; c <lastColumnNumber; c++) {
+            for (int c = 0; c <lastCellNum; c++) {
                 XSSFCell cell = row.getCell(c);
 
                 System.out.print(cell + " | ");

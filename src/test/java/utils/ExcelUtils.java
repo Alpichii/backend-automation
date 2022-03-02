@@ -9,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ExcelUtils {
@@ -102,7 +103,8 @@ public class ExcelUtils {
 //        System.out.println(getValue(2, 3));
 //        setValue("Polo", 1, 0);
 //        insertValue("Polo", 7, 8);
-        System.out.println(getValues());
+//        System.out.println(getValues());
+        System.out.println(Arrays.deepToString(getExcelData(getValues())));
 
     }
 
